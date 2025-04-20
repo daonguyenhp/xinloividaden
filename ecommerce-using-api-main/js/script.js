@@ -171,7 +171,7 @@ document.getElementById("chatbot-send").addEventListener("click", async function
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-            "Authorization": "Bearer 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", // Replace with your actual API key
+            "Authorization": "Bearer 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", // Replace with your actual API key
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
