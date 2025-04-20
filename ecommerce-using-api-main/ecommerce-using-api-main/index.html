@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Shopping Cart | The Dev Drawer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="nav-placeholder"></div>
+    <div class="container-fluid">
+        <div class="hero">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold">Welcome to TeenShop</h1>
+                    <p class="col-lg-10 fs-4">Create an account to enjoy our exclusive deals and offers. Sign up today!</p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+                    <form id="signupForm" class="p-4 p-md-5 border rounded-3 bg-light">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com" autocomplete="off" required>
+                            <label for="email">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off" required>
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off" required>
+                            <label for="password">Password</label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+                        <hr class="my-4">
+                        <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                    </form>
+                    <div class="signupMsg"></div> <!-- This will show registration messages -->
+                </div>
+            </div>
+        </div>
+
+        <h2>Newest Products</h2>
+        <div class="row products new"></div> <!-- Newest Products will be added here -->
+        <br>
+        <img src="https://via.placeholder.com/1280x200.png?text=Placeholder%20Image" class="img-fluid">
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/init.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Tạo một mảng giả lập sản phẩm từ API
+            var productsData = [
+            {
+            "id": 268,
+            "name": "Đầm Đen Cổ Yếm Phối Tùng Voan Bèo Laser Kèm Quần Short",
+            "price": 100000,
+            "thumbnail": "CJ9kn8B41nguMZnV3EDXjPTIcjHr1TjvyjStZWjQ.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 267,
+            "name": "Đầm Ren Trắng Đính Nơ",
+            "price": 100000,
+            "thumbnail": "KqxvjEjSdImWVr487GnryftxRFrej9XUAdkwv105.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 266,
+            "name": "Áo Voan Hồng Loang Nhún Bí Kèm Nơ",
+            "price": 100000,
+            "thumbnail": "J3dkYZrzLBkDr8YNrWVOdNPc6BkyOUcT7pgtUEFn.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 265,
+            "name": "Đầm Yếm Bèo Voan Kem",
+            "price": 100000,
+            "thumbnail": "VNIgc2FgOGronR8FVp8wCRNm0UWndXEq0B0Mz4Dw.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 264,
+            "name": "Đầm Voan Cổ Đổ Lót Lụa Màu Xám",
+            "price": 100000,
+            "thumbnail": "uVMSbrqb3qsICQPlyMKKGLNLpU3K5E4mg1n1166v.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 263,
+            "name": "Chân Váy Voan Kem Rã 3 Tầng",
+            "price": 100000,
+            "thumbnail": "0aoFm0NqR5IGGCP9EXL5GpylKKw5hfRaYBItRSv3.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 262,
+            "name": "Áo Voan Nâu Cổ Yếm",
+            "price": 100000,
+            "thumbnail": "3ESpXkZZfdSqWLWEp95V079uP1Q8d4A9YIf9L48e.jpg",
+            "category": { "name": "Thời trang" }
+        },
+        {
+            "id": 261,
+            "name": "Áo Dây Trắng Croptop Đính Hoa",
+            "price": 100000,
+            "thumbnail": "ch2qHcNzF46Wx0bKLtKpQG57Iik041Ebf1wVGW4I.jpg",
+            "category": { "name": "Thời trang" }
+        }
+    ];
+
+            // Duyệt qua mảng sản phẩm và hiển thị chúng trên giao diện
+            productsData.forEach(function (product) {
+                $(".products.new").append(`
+                    <div class="col-md-3">
+                        <div class="product">
+                            <a href="/product.html?productid=${product.id}">
+                                <div class="image">
+                                    <img src="https://api.teenshop.vn/media/products/${product.thumbnail}" class="img-fluid" alt="${product.name}">
+                                </div>
+                                <div class="info">
+                                    <div class="title">${product.name}</div>
+                                    <div class="price">${product.price} VND</div>
+                                    <div class="category">${product.category.name}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                `);
+            });
+        });
+    </script>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container">
+    <div id="chatbot-header">Chat with us!</div>
+    <div id="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Type your message...">
+    <button id="chatbot-send">Send</button>
+</div>
+
+
+<!-- Link to your CSS file -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Your chatbot HTML goes here (from step 1) -->
+
+<!-- Link to your JS file -->
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
