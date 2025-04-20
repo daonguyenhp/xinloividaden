@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | TeenShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="nav-placeholder"></div>
+    <div class="container-fluid">
+        <!-- <img src="https://via.placeholder.com/1280x200.png?text=Placeholder%20Image" class="img-fluid"> -->
+        <br><br>
+        <h1 class="product_title"></h1>
+        <div class="breadcrumb"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="product">
+                    <div class="image">
+                        <div class="product_image"></div>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-md-9">
+                <h2 class="product_price"></h2>
+                <div class="product_description"></div>
+                <button class="btn btn-success me-2"><i class="bi bi-cart"></i> Add To Cart</button>
+                <button class="btn btn-primary"><i class="bi bi-heart"></i> Add To Wishlist</button>
+            </div>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/init.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Get product ID from URL
+            var productId = new URLSearchParams(window.location.search).get('productid');
+
+            if (productId) {
+                // Fetch product details from the API
+                $.ajax({
+                    type: "GET",
+                    url: "https://teenshop.vn/api/products/" + productId, // Endpoint to get product details
+                    success: function (data) {
+                        // Update breadcrumb
+                        $(".breadcrumb").html('<a href="/">Home</a><span class="sep">></span><a href="/category.html?category=' + data.category.name + '">' + data.category.name + '</a><span class="sep">></span>' + data.name);
+
+                        // Update product details
+                        $(".product_title").html(data.name); // Product title
+                        $(".product_price").html(data.price + " VND"); // Product price
+                        $(".product_description").html(data.description); // Product description
+
+                        // Display product image
+                        $(".product_image").html('<img src="https://api.teenshop.vn/media/products/' + data.thumbnail + '" class="img-fluid">');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error fetching product details:", error);
+                        $(".product_description").html("<p>There was an error loading the product details.</p>");
+                    }
+                });
+            } else {
+                $(".product_description").html("<p>No product selected.</p>");
+            }
+
+            // Handle add to cart button click
+            $(".btn-success").click(function () {
+                // Add product to localStorage (cart)
+                var product = {
+                    id: productId,
+                    title: $(".product_title").text(),
+                    price: $(".product_price").text(),
+                    image: $(".product_image img").attr("src")
+                };
+
+                var cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.push(product);
+                localStorage.setItem("cart", JSON.stringify(cart));
+
+                alert("Product added to cart!");
+            });
+
+            // Handle add to wishlist button click
+            $(".btn-primary").click(function () {
+                // Add product to localStorage (wishlist)
+                var wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+                wishlist.push({
+                    id: productId,
+                    title: $(".product_title").text(),
+                    price: $(".product_price").text(),
+                    image: $(".product_image img").attr("src")
+                });
+                localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+                alert("Product added to wishlist!");
+            });
+        });
+    </script>
+</body>
+</html>
