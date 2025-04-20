@@ -1,0 +1,36 @@
+<div class="category_products"></div>
+<script>
+    $(document).ready(function () {
+        var categorySlug = new URLSearchParams(window.location.search).get('category');
+
+        if (categorySlug) {
+            $.ajax({
+                type: "GET",
+                url: "https://teenshop.vn/api/products?category=" + categorySlug, // API endpoint for fetching products by category
+                success: function (data) {
+                    if (data.data && data.data.length > 0) {
+                        data.data.forEach(function (product) {
+                            $(".category_products").append(`
+                                <div class="col-md-3">
+                                    <div class="product">
+                                        <a href="/product.html?productid=${product.id}">
+                                            <img src="https://api.teenshop.vn/media/products/${product.thumbnail}" class="img-fluid" alt="${product.name}">
+                                            <div>${product.name}</div>
+                                            <div>${product.price} VND</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    } else {
+                        $(".category_products").html('<div class="alert alert-warning">No products found in this category.</div>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error fetching category products:", error);
+                    $(".category_products").html('<div class="alert alert-danger">Error fetching category products. Please try again later.</div>');
+                }
+            });
+        }
+    });
+</script>
