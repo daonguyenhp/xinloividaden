@@ -9,7 +9,12 @@
 
 ## 1. Project Overview
 
+<div align="center">
+<img width="736" height="418" alt="Screenshot 2026-01-13 000617" src="https://github.com/user-attachments/assets/7e2712e4-c313-47af-8da8-76ec046d7277" />
+</div>
+
 **ICEAM** (Intelligent Chatbot & E-commerce Assistant Model) is a software solution designed to automate customer support and centralize data management for Small and Medium-sized Enterprises (SMEs). The system leverages Generative AI (LLMs) via the OpenRouter/DeepSeek API to provide natural language processing capabilities, integrated with a local Knowledge Base managed through Excel.
+
 
 The primary objectives of the system are:
 * **Natural Language Understanding (NLU):** Interpret user intent beyond keyword matching.
