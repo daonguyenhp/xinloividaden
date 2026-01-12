@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ICEAM | Your Account</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/style.min.css" rel="stylesheet">
+</head>
+
+<body class="auth">
+	<div id="nav-placeholder"></div>
+	<div class="container-fluid userAccount">
+		<!-- <img src="https://via.placeholder.com/1280x200.png?text=Placeholder%20Image" class="img-fluid"> -->
+		<br><br>
+		<div class="breadcrumb"><a href="/">Home</a><span class="sep">></span>Your Account</div>
+		<h1>Your Account</h1>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-body">
+						<div class="loginMsg"></div>
+						<form method="post" class="updateAccount">
+							<input type="text" id="username" name="username" class="form-control" readonly>
+							<label for="username">User Name</label>
+							<h3>Personal Information</h3>
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" id="fname" name="fname" class="form-control">
+									<label for="fname">First Name</label>
+								</div>
+								<div class="col-md-6">
+									<input type="text" id="lname" name="lname" class="form-control">
+									<label for="lname">Last Name</label>
+								</div>
+							</div>
+							<input type="text" id="phone" name="phone" class="form-control">
+							<label for="phone">Phone Number</label>
+							<input type="email" id="email" name="email" class="form-control">
+							<label for="email">Email Address</label>
+							<h3>Address</h3>
+							<input type="text" id="address" name="address" class="form-control">
+							<label for="address">Street Address</label>
+							<div class="row">
+								<div class="col-md-8">
+									<input type="text" id="city" name="city" class="form-control">
+									<label for="city">City</label>
+								</div>
+								<div class="col">
+									<input type="text" id="zip" name="zip" class="form-control">
+									<label for="zip">Zip Code</label>
+								</div>
+							</div>
+							<br>
+							<p><button type="submit" class="btn btn-lg btn-success">Update Account</button></p>
+						</form>
+					</div>
+				</div>        
+			</div>
+		</div>
+	</div>
+	<div id="footer-placeholder"></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="js/init.js"></script>
+
+	<script>
+        $(document).ready(function () {
+            // Lấy thông tin người dùng từ localStorage
+            var user = JSON.parse(localStorage.getItem("user"));
+    
+            // Nếu không có người dùng, chuyển hướng về trang đăng nhập
+            if (!user) {
+                window.location.href = "/login.html";
+            } else {
+                // Hiển thị thông tin người dùng trên trang
+                $("#username").val(user.name);
+                $("#email").val(user.email);
+                $("#phone").val(user.phone);
+                $("#address").val(user.address);
+                $("#city").val(user.city);
+                $("#zip").val(user.zip);
+            }
+    
+            // Cập nhật thông tin người dùng
+            $("form.updateAccount").submit(function (e) {
+                e.preventDefault();
+    
+                var updatedData = {
+                    name: $("#username").val(),
+                    email: $("#email").val(),
+                    phone: $("#phone").val(),
+                    address: $("#address").val(),
+                    city: $("#city").val(),
+                    zip: $("#zip").val()
+                };
+    
+                // Gửi yêu cầu cập nhật thông tin người dùng
+                $.ajax({
+                    type: "PUT",
+                    url: "https://teenshop.vn/api/profile",  // API để cập nhật thông tin người dùng
+                    data: JSON.stringify(updatedData),
+                    contentType: "application/json",
+                    success: function (response) {
+                        if (response.success) {
+                            $(".updateMsg").html('<div class="alert alert-success" role="alert">Account updated successfully.</div>');
+                        } else {
+                            $(".updateMsg").html('<div class="alert alert-danger" role="alert">Failed to update account.</div>');
+                        }
+                    },
+                    error: function () {
+                        $(".updateMsg").html('<div class="alert alert-danger" role="alert">Error updating account. Please try again.</div>');
+                    }
+                });
+            });
+        });  
+	</script>
+</body>
+</html>

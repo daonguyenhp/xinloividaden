@@ -1,0 +1,223 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");body{color:#333;font-size:16px}.text-end a{float:right}a{text-decoration:none !important}a :hover,a :active,a :visited{text-decoration:none}.breadcrumb .sep{padding:0 5px}label{margin-bottom:1rem}.hero{background-color:#e7f3ff;padding:2rem;margin-bottom:2rem}.product{border:1px solid #c0c0c0;height:300px;margin-bottom:1rem;text-align:center;position:relative}.product .image{overflow:hidden;height:100%;width:100%;margin-bottom:1rem;padding:1rem}.product .image img{max-height:80%;max-width:80%;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.product .info{background-color:#1c7ad1cc;position:absolute;width:100%;bottom:0;left:0;padding:1rem;min-height:100%;opacity:0;transition:all 0.25s ease;color:#fff !important}.product .info .title{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.product :hover>.info{opacity:1}footer{margin-top:2rem}.cartDisplay div{width:75%}.cartDisplay div h6{text-align:left}.cartDisplay img{margin-right:1rem}
+
+.product .info .h6 {
+    position: absolute;  /* Chuyển từ fixed thành absolute */
+    bottom: 30px; /* Đưa "Buy Now" xuống dưới cùng */
+    left: 50%;
+    transform: translateX(-50%); /* Căn giữa chữ theo chiều ngang */
+    font-size: 1.2rem; /* Làm chữ "Buy Now" to hơn */
+    font-weight: bold; /* Đậm chữ */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi hover */
+  }
+
+:root {
+  --grey: #f5f5f5;
+  --blue: #3d88f9;
+  --black: #1a1a1a;
+}
+
+/* Nút tròn bật chat */
+.chat-button {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  z-index: 998;
+  background-color: #9177C7;
+  color: white;
+  height: 65px;
+  width: 66px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-button img {
+  width: 45px;
+}
+
+.chat-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* Khung chat chính */
+.chat-window {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  border-radius: 20px;
+  position: fixed;
+  z-index: 999;
+  bottom: 60px;
+  right: 20px;
+  height: 500px;
+  width: 350px;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Nút đóng */
+.chat-window .close {
+  border: none;
+  padding: 8px 0;
+  background-color: #4796E3;
+  color: white;
+  border-radius: 20px 20px 0 0;
+  cursor: pointer;
+  border-radius: 20px 20px 0 0;
+}
+
+/* Vùng hiển thị chat */
+.chat-window .chat {
+  flex: 1;
+  padding: 0 7px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+
+.chat-window .chat p {
+  border-radius: 20px;
+  width: 80%;
+  margin: 8px 0;
+  font-size: 15px;
+  padding: 5px 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.chat-window .chat .model p {
+  background-color: var(--grey);
+  display: flex;
+  justify-content: center;   /* Căn giữa ngang */
+  /*align-items: center;*/       /* Căn giữa dọc */
+  text-align: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.chat-window .chat .user {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chat-window .chat .user p {
+  background-color: #eb97a2;
+  color: white;
+  display: flex;
+  justify-content: center;   /* Căn giữa ngang */
+  align-items: flex-end;       /* Căn giữa dọc */
+  text-align: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.chat-window .chat .error p {
+  background-color: var(--grey);
+  font-size: 14px;
+  text-align: center;
+  color: red;
+}
+
+/* Input + nút gửi */
+.chat-window .input-area {
+  display: flex;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+  border-top: 1px solid lightgray;
+  gap: 10px;
+}
+
+.chat-window .input-area input {
+  display: flex;
+  height: 40px;
+  flex: 1;
+  border: none;
+  background-color: var(--grey);
+  border-radius: 20px;
+  padding-left: 20px;
+  font-size: 16px;
+}
+
+.chat-window .input-area button {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border: none;
+  background-color: var(--blue);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chat-window .input-area button img {
+  width: 18px;
+}
+
+.chat-window .input-area button:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* Loader (nếu cần dùng hiệu ứng loading sau này) */
+.loader {
+  width: 40px;
+  opacity: 0.4;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1.5s steps(4) infinite;
+}
+
+@keyframes l1 {
+  to { clip-path: inset(0 -34% 0 0); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+button.send-anim {
+  animation: shake 0.3s;
+}
+
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+
+
+/* Hiệu ứng nút gửi */
+.input-area button {
+  transition: transform 0.1s ease-in-out, background-color 0.2s ease;
+}
+
+.input-area button:active,
+.input-area button.clicked {
+  transform: scale(0.9);
+}
+
+.input-area button.clicked {
+  background-color: #357ae8 !important; /* xanh đậm hơn trong tích tắc */
+}
+

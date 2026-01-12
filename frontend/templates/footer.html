@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+        /* Cho nút có chuyển động mượt mà */
+        .btn-outline-light {
+          transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        /* Hover: đổi nền, đổi màu chữ */
+        .btn-outline-light:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: #000;
+        }
+        /* Active (khi nhấn): nén nhẹ */
+        .btn-outline-light:active {
+          transform: scale(0.97);
+        }
+      </style>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Shopping Cart | ICEAM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Content here -->
+
+    <footer class="bg-dark text-center text-white">
+        <div class="container p-4">
+            <!-- Newsletter Sign Up Section -->
+            <section class="newsletter-section">
+                <form id="newsletterForm" action="javascript:void(0);" method="POST">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-auto">
+                            <p class="pt-2">
+                                <strong>Sign up for our newsletter</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-12">
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="emailInput" class="form-control" placeholder="Email address" required>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-light mb-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Links Section -->
+             <!-- Link bằng cách thay thế #! trong href bằng đường dẫn thực tế -->
+            <section class="links-section">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Useful Links</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!" class="text-white">Privacy Policy</a></li>
+                            <li><a href="#!" class="text-white">Terms of Service</a></li>
+                            <li><a href="#!" class="text-white">FAQ</a></li>
+                            <li><a href="#!" class="text-white">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">About</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!" class="text-white">About Us</a></li>
+                            <li><a href="#!" class="text-white">Careers</a></li>
+                            <li><a href="#!" class="text-white">Store Locator</a></li>
+                            <li><a href="#!" class="text-white">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Customer Support</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!" class="text-white">Shipping & Returns</a></li>
+                            <li><a href="#!" class="text-white">Track Order</a></li>
+                            <li><a href="#!" class="text-white">Warranty</a></li>
+                            <li><a href="#!" class="text-white">Help Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Follow Us</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!" class="text-white">Facebook</a></li>
+                            <li><a href="#!" class="text-white">Instagram</a></li>
+                            <li><a href="#!" class="text-white">Twitter</a></li>
+                            <li><a href="#!" class="text-white">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2025 Copyright: <a class="text-white" href="#">ICEAM</a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/init.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Handle newsletter subscription form submission
+            $('#newsletterForm').submit(function (e) {
+                e.preventDefault();
+
+                var email = $('#emailInput').val();
+
+                // Example of handling the newsletter subscription
+                $.ajax({
+                    type: "POST",
+                    url: "/api/newsletter",  // Replace with actual API endpoint for newsletter
+                    data: { email: email },
+                    success: function (response) {
+                        alert('Thank you for subscribing!');
+                    },
+                    error: function () {
+                        alert('There was an error. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

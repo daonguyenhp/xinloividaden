@@ -1,0 +1,174 @@
+<!-- All HTML document must be start with a declaration -->
+<!DOCTYPE html>
+<!-- Declare the language of the Web page. This is meant to assist search engines and browers -->
+<html lang="en">
+
+<!-- Header in HTML5 -->
+<head>
+
+    <!-- Button Styles - Bootstrap(this is a framework) -->
+    <!--Create effects for buttons -->
+    <style>
+        .btn-primary {
+          transition: transform 0.1s ease-in-out;
+        }
+        .btn-primary:active {
+          transform: scale(0.97);
+        }
+    </style>
+
+    <!-- Import Bootstrap CSS -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICEAM | Xin loi vi da den</title>
+    
+    <!-- Importing Bootstrap Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+
+    <!---->
+
+</head>
+
+<!-- Body in HTML5 -->
+<body>
+    
+    <!-- Importing Scripts for programs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+    <script src="js/init.js"></script>
+    <script src="js/categories.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- <div> section in a document that is styled with CSS. This is mean that -->
+    <!-- <div> ."Name" and then declare the interface of this class -->
+    <div id="nav-placeholder"></div> <!--ID is unique in program but class elements are sometimes alike. (Thanh điều hướng) -->
+    <div class="container-fluid">
+        <div class="hero">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold">Welcome to ICEAM</h1>
+                    <p class="col-lg-10 fs-4">Create an account to enjoy our exclusive deals and offers. Sign up today!</p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+                    <form id="signupForm" class="p-4 p-md-5 border rounded-3 bg-light">
+                        <!-- Label “nổi” bên trong input, sẽ co lại khi focus hoặc khi đã có giá trị -->
+                        <!-- autocomplete="off": Tắt gợi ý Google -->
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com" autocomplete="on" required>
+                            <label for="email">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off" required>
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off" required>
+                            <label for="password">Password</label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+                        <hr class="my-4">
+
+                        <!-- Change terms of use elements form static model to link modal -->
+                        <small class="text-muted">
+                            By clicking Sign up, you agree to the 
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">
+                                terms of use.
+                              </a>
+                            </small>
+                    </form>
+                    <div class="signupMsg"></div> <!-- This will show registration messages -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Insert information in terms of use -->
+        <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms of Use</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <!-- Nội dung điều khoản ở đây -->
+                <p class = "text-center fs-2 fw-bold mb-3">
+                    Thành phố Hồ Chí Minh - Hồi ức không quên
+
+                    <img src="https://file3.qdnd.vn/data/images/0/2022/04/26/thuyanh/30-4.jpg?dpi=150&quality=100&w=870" 
+                    style="max-width:300px; margin-left:1rem;" 
+                    class="imgtelerik"
+                    >
+                <p>
+                    Sài Gòn - TP. HCM mãi mãi là thành phố tôi yêu! Và tôi tin rằng, với sức trẻ, 
+                    lòng nhiệt huyết và tinh thần sáng tạo, chúng ta sẽ tiếp tục viết tiếp những trang sử hào hùng, 
+                    đưa thành phố này bước đến một tương lai rạng rỡ hơn nữa. Mỗi con người, 
+                    mỗi thế hệ đều phải có trách nhiệm với Tổ quốc. 
+                    Nếu trách nhiệm của thế hệ cha ông ta là đánh đuổi kẻ thù xâm lược, giành lại độc lập dân tộc và thống nhất đất nước, 
+                    kiến thiết đất nước sau chiến tranh thì ngày nay, trọng trách bảo vệ vững chắc thành quả cách mạng, xây dựng đất nước ta ngày càng "đàng hoàng hơn, to đẹp hơn” 
+                    như mong muốn của Chủ tịch Hồ Chí Minh phải đặt lên vai thế hệ trẻ. Để làm được điều đó, thế hệ hôm nay cần cố gắng phấn đấu trong học tập, 
+                    làm việc, ra sức gìn giữ cho được thành quả cách mạng, đồng thời tận dụng thời cơ, tiến quân vào khoa học công nghệ để đưa nước ta phát 
+                    triển lên một tầm cao mới, đem lại cuộc sống ngày càng ấm no, hạnh phúc cho nhân dân, xứng đáng với truyền thống anh hùng và công lao to lớn, 
+                    cũng như sự tin yêu, kỳ vọng của các thế hệ đi trước.
+                    <p class = "text-center">
+                    “Nếu được làm hạt giống để mùa sau
+                    <br> Nếu lịch sử chọn ta làm điểm tựa
+                    <br> Vui gì hơn làm người lính đi đầu
+                    <br> Trong đêm tối tim ta làm ngọn lửa”
+                    <br> (Tố Hữu, Chào xuân 67)
+                    </p>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Import Bootstrap JS and Popper.js for Modal -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        
+
+        <h2>Newest Products</h2>
+        <div class="row products new"></div> <!-- Newest Products will be added here -->
+
+         <!-- Create a chat window with a button to open it -->
+        <section class="chat-window">
+        <button class="close">x close</button>
+        <div class="chat">
+            <div class="model">
+                <p>Hi, What can I call you?</p>
+            </div>
+            
+        </div>
+        <div class="input-area">
+            <input placeholder="Ask me anything..." type="text" id="input"  required/>
+            <button>
+                <img src="send.svg" alt="send">
+            </button>
+        </div>
+        </section>
+
+
+    <!-- Thêm class "pulsing" vào ảnh để tạo hiệu ứng nhấp nháy -->
+    <div class="chat-button">
+        <img src="face_2.svg" alt="start chat" class="pulsing">
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    </script>
+</body>
+</html>

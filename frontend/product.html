@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail | ICEAM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <div class="container-fluid">
+    <br><br>
+    <h1 class="product_title"></h1>
+    <div class="alert alert-danger product-error" style="display:none; text-align:center; margin:1rem 0">
+      No product selected.
+    </div>
+    <div class="breadcrumb"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="product">
+          <div class="image">
+            <div class="product_image"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <h2 class="product_price"></h2>
+        <div class="product_description"></div>
+        <div class="mt-4">
+          <button class="btn btn-success me-2"><i class="bi bi-cart"></i> Add To Cart</button>
+          <button class="btn btn-primary"><i class="bi bi-heart"></i> Add To Wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <script src="js/init.js"></script>
+
+  <script>
+  (async () => {
+    // Get productid from URL
+    // Example: https://example.com/product.html?productid=123
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('productid'), 10);
+    if (!productId) {
+      document.querySelector('.product-error').style.display = 'block';
+      return;
+    }
+
+    // Get data from API
+    // Sử dụng AllOrigins để tránh CORS
+    const proxy = 'https://api.allorigins.win/raw?url=';
+    const allProducts = [];
+
+    try {
+      // Duyệt từng category_id (1 đến 5)
+      for (let catId = 1; catId <= 5; catId++) {
+        try {
+          const url = `https://teenshop.vn/api/products?category_id=${catId}`;
+          const fullUrl = proxy + encodeURIComponent(url);
+          const res = await fetch(fullUrl);
+
+          if (!res.ok) {
+            console.warn(`Không tải được category ${catId}: HTTP ${res.status}`);
+            continue;
+          }
+
+          const data = await res.json();
+          const list = Array.isArray(data) ? data : (data.data || []);
+          allProducts.push(...list);
+        } catch (e) {
+          console.warn(`Lỗi khi tải category ${catId}:`, e);
+        }
+      }
+
+      // Tìm sản phẩm
+      const p = allProducts.find(prod => prod.id === productId);
+      if (!p) throw new Error("Không tìm thấy sản phẩm");
+
+      // Hiển thị sản phẩm (Render sản phẩm ra giao diện)
+      document.querySelector('.product-error').style.display = 'none';
+      document.querySelector('.product_title').textContent = p.name;
+      document.querySelector('.product_price').textContent =
+        new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
+      document.querySelector('.product_description').textContent = p.description || '';
+      document.querySelector('.product_image').innerHTML = `
+        <img src="https://api.teenshop.vn/media/${p.thumbnail}" class="img-fluid" alt="${p.name}">
+      `;
+
+      // Add to cart
+      // When clicking the "Add To Cart" button, add the product to the cart - localStorage
+      document.querySelector('.btn-success').addEventListener('click', () => {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        cart.push({
+          id: p.id,
+          title: p.name,
+          price: p.price,
+          image: `https://api.teenshop.vn/media/${p.thumbnail}`
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Đã thêm vào giỏ hàng!');
+      });
+
+      // Add to wishlist - Similar to cart
+      document.querySelector('.btn-primary').addEventListener('click', () => {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        wishlist.push({
+          id: p.id,
+          title: p.name,
+          price: p.price,
+          image: `https://api.teenshop.vn/media/${p.thumbnail}`
+        });
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        alert('Đã thêm vào yêu thích!');
+      });
+
+    } catch (err) {
+      console.error('Lỗi tải sản phẩm:', err);
+      document.querySelector('.product-error').textContent = err.message || 'Không thể tải sản phẩm.';
+      document.querySelector('.product-error').style.display = 'block';
+    }
+  })();
+  </script>
+
+</body>
+</html>

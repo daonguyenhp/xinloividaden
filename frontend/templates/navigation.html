@@ -1,0 +1,73 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <!-- <img src="/path-to-your-logo.png" alt="Logo" style="width: 40px; height: auto;"> Add your logo -->
+            </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/about.html">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Store
+                    </a>
+                    <div class="dropdown-menu categories" aria-labelledby="navbarDropdown">
+                        <!-- Categories will be inserted here -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/contact.html">Contact</a>
+                </li>
+            </ul>
+            <div class="text-end">
+                <a class="nav-link text-white" href="/cart.html">
+                    <i class="bi bi-cart"></i><span class="cartCount badge bg-primary ms-2"></span>
+                </a>
+                <a class="nav-link text-white" href="/wishlist.html">
+                    <i class="bi bi-heart"></i>
+                </a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 accountNav">
+                    <!-- Account-related links will be inserted here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div class="dropdown-menu categories" aria-labelledby="navbarDropdown">
+    <!-- Categories will be inserted here -->
+</div>
+
+<script>
+    $(document).ready(function () {
+       
+        // Display the number of items in the cart
+        var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        $(".cartCount").text(cartItems.length);
+
+        // Check if the user is logged in and display account-related links
+        var user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+            // Display user's account info and logout option
+            $(".accountNav").html(
+                '<li class="nav-item"><a class="nav-link text-white" href="/account.html">Hello, ' + user.name + '</a></li>' +
+                '<li class="nav-item"><a class="nav-link text-white" href="/logout.html">Log Out</a></li>'
+            );
+        } else {
+            // Display login and sign-up links
+            $(".accountNav").html(
+                '<li class="nav-item"><a class="nav-link text-white" href="/login.html">Login</a></li>' +
+                '<li class="nav-item"><a class="nav-link text-white" href="/signup.html">Sign Up</a></li>'
+            );
+        }
+    });
+</script>
